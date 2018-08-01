@@ -1,5 +1,5 @@
 var fabricClient = require('./Config/FabricClient');
-var FabricCAClient = require('./Config/FabricCAClient');
+// var FabricCAClient = require('./Config/FabricCAClient');
 
 class ExampleNetwork {
 
@@ -11,6 +11,9 @@ class ExampleNetwork {
   }
 
   init() {
+
+    console.log("Inside Init of Example Network");
+
     var isAdmin = false;
     if (this.userName == "admin") {
       isAdmin = true;
@@ -30,12 +33,21 @@ class ExampleNetwork {
   }
 
    sell(data) {
+
+    console.log("Inside Sell of Example Network");
+
+    console.log(this.connection.newTransactionID());
+
     var tx_id = this.connection.newTransactionID();
+
     var requestData = {
       fcn: 'createProduct',
       args: [data.from, data.to, data.product, data.quantity],
       txId: tx_id
     };
+
+    console.log(requestData);
+
     var request = FabricModel.requestBuild(requestData);
     return this.connection.submitTransaction(request);
   }
